@@ -59,7 +59,15 @@ const favouriteMovies=[
 
 
 
+app.get('/movies',(req,res)=>{
+    res.json(favouriteMovies);
 
+});
+
+app.get('/',(req,res)=>{
+    res.send('Welcome to my favourite movies of all time!');
+
+});
 
 
 
