@@ -57,7 +57,7 @@ const favouriteMovies=[
     },
 ];
 
-
+app.use(morgan('common'));
 
 app.get('/movies',(req,res)=>{
     res.json(favouriteMovies);
@@ -71,4 +71,6 @@ app.get('/',(req,res)=>{
 
 app.use(express.static('public'));
 
-  
+app.listen(8080,()=>{
+    console.log('This app is being listened to on port 8080');
+});
