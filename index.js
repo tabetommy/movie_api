@@ -7,53 +7,53 @@ const favouriteMovies=[
     {
         title:'Game of Thrones',
         year:2011,
-        category:'Adventure'
+        genre:'Adventure'
 
     },
     {
         title:'Abejoye',
         year:2018,
-        category:'Gospel'
+        genre:'Gospel'
     },
     {
         title:'War Room',
         year:2015,
-        category:'Gospel'
+        genre:'Gospel'
     },
     {
         title:'Blacklist',
         year:2013,
-        category:'Crime'
+        genre:'Crime'
     },
     {
         title:'Legend of the Seeker',
         year:2008,
-        category:'Adventure'
+        genre:'Adventure'
     },
     {
         title:'King of the Boys',
         year:2018,
-        category:'Political Thriller'
+        genre:'Political Thriller'
     },
     {
         title:'24',
         year:2001,
-        category:'Crime thriller'
+        genre:'Crime thriller'
     },
     {
         title:'House of Cards',
         year:2013,
-        category:'Political Drama'
+        genre:'Political Drama'
     },
     {
         title:'Power',
         year:2014,
-        category:'Crime Drama'
+        genre:'Crime Drama'
     },
     {
         title:'THe Weddding Party 1',
         year:2016,
-        category:'Comedy'
+        genre:'Comedy'
     },
 ];
 
@@ -70,6 +70,11 @@ app.get('/',(req,res)=>{
 });
 
 app.use(express.static('public'));
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
 
 app.listen(8080,()=>{
     console.log('This app is being listened to on port 8080');
