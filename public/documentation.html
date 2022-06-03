@@ -11,5 +11,90 @@
     <body>
        <h1>API documentation for the myFlix app</h1>
        <p>This API helps serve the myFlix app clients with the required backend resources</p>
+       <table>
+        <tr>
+          <th>Request</th>
+          <th>URL</th>
+          <th>HTTP Method</th>
+          <th>Request body data format</th>
+          <th>Response body data format</th>
+        </tr>
+        <tr>
+            <td>Get a list of movies</td>
+            <td>/movies</td>
+            <td>GET</td>
+            <td>none</td>
+            <td>A JSON object containing data of all the movies</td>
+        </tr>
+        <tr>
+            <td>Get data of single movie</td>
+            <td>/movies/[title]</td>
+            <td>GET</td>
+            <td>none</td>
+            <td>A JSON object containing data of a single movie</td>
+        </tr>
+        <tr>
+            <td>Get description of a genre  by genre name</td>
+            <td>/movies/genre/[name]/</td>
+            <td>GET</td>
+            <td>none</td>
+            <td>A string containing data of a single movie</td>
+        </tr>
+        <tr>
+            <td>Get data about a director by director's name</td>
+            <td>/movies/director/[name]/</td>
+            <td>GET</td>
+            <td>none</td>
+            <td>A JSON object containing director's name and day of birth </td>
+        </tr>
+        <tr>
+            <td>Allow new users to register</td>
+            <td>/users</td>
+            <td>POST</td>
+            <td>
+                A JSON object holding data about the new user structured like:<br>
+                {<br>
+                    username:"Brian Mukukeba",<br>
+                    password:"xyz!";<br>
+                }
+            </td>
+            <td>
+                A JSON object holding data about the new user structured like:<br>
+                {<br>
+                    username:"Brian Mukeba",<br>
+                    password:"xyz!";<br>
+                    id:1<br>
+                }
+            </td>
+        </tr>
+        <tr>
+            <td>Allow users update their password</td>
+            <td>/users/[username]/[password]</td>
+            <td>PUT</td>
+            <td>none</td>
+            <td>A message indicating that user sussesfully updated his/her password</td>
+        </tr>
+        <tr>
+            <td>Allow users add a movie to their list of favourite movies</td>
+            <td>/users/[username]/favMovies/[favMovies]</td>
+            <td>Put</td>
+            <td>none</td>
+            <td>A message indicating that movie has been succesfully added to list of favourites</td>
+        </tr>
+        <tr>
+            <td>Allow users remove a movie from their list of favourites</td>
+            <td>/users/[username]/favMovies/[removeMovie]</tr>
+            <td>DELETE</td>
+            <td>none</td>
+            <td>A message indicating that movie has been succesfully removed from list of favourites</td>
+        </tr>
+        <tr>
+            <td>Allow users to deregister</td>
+            <td>/users/[id]</td>
+            <td>DELETE</td>
+            <td>none</td>
+            <td>A message indicating that user has been succesfully deregistered</td>
+        </tr>
+      </table>
     </body>
 </html>

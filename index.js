@@ -58,15 +58,15 @@ const favouriteMovies=[
 ];
 
 app.use(morgan('common'));
-
-app.get('/movies',(req,res)=>{
-    res.json(favouriteMovies);
-
-});
-
+//return route
 app.get('/',(req,res)=>{
     res.send('Welcome to my favourite movies of all time!');
 
+});
+
+//return list of all movies to client
+app.get('/movies',(req,res)=>{
+    res.json(favouriteMovies);
 });
 
 app.use(express.static('public'));
