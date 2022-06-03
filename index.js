@@ -110,6 +110,23 @@ app.get('/movies/director/:name',(req,res)=>{
       res.status(400).send('No movie directed by' + req.params.name + ' found')
     }
   });
+  
+//get all users
+app.get('/users',(req,res)=>{
+    res.json(users);
+  });
+  
+//Allow  new users to register(**sauber)
+  app.post('/users',(req,res)=>{
+    let newUser=req.body;
+    if(!newUser.username){
+      res.status(400).send('Username is missing in the request body')
+    }else{
+      newUser.id=uuid.v4();
+      users.push(newUser);
+      res.status(201).send(newUser)
+    }
+  });
 app.use(express.static('public'));
 
 app.use((err, req, res, next) => {
