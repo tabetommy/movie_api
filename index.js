@@ -110,13 +110,13 @@ app.get('/movies/director/:name',(req,res)=>{
       res.status(400).send('No movie directed by' + req.params.name + ' found')
     }
   });
-  
+
 //get all users
 app.get('/users',(req,res)=>{
     res.json(users);
   });
   
-//Allow  new users to register(**sauber)
+//Allow  new users to register
   app.post('/users',(req,res)=>{
     let newUser=req.body;
     if(!newUser.username){
@@ -127,6 +127,17 @@ app.get('/users',(req,res)=>{
       res.status(201).send(newUser)
     }
   });
+
+//Allow users update their  password 
+app.put('/users/:username/:password', (req,res)=>{
+    let user=users.find(user=>user.username===req.params.username);
+    if(user){
+      user.password=req.params.password
+      res.status(201).send( user.username +'\'s passowrd has been succesfully updated')
+    }else{
+      res.status(400).send(req.params.username +' not found')
+    }
+ });
 app.use(express.static('public'));
 
 app.use((err, req, res, next) => {
