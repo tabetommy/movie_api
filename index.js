@@ -4,8 +4,28 @@ const express=require('express');
       bodyParser = require('body-parser'),
       uuid = require('uuid');
 
+app.use(bodyParser.json());
 
-const favouriteMovies=[
+let users=[
+    {
+      id:"1",
+      username:"Tommy Tabe",
+      born:"January 25 1995",
+      email:"xyz@yahoo.com",
+      password:"xyz!",
+      favMovies:["King of the boys", "Game of Thrones","Happy"]
+    },
+    {
+      id:"2",
+      username:"John Knox",
+      born:"March 23 1990",
+      email:"abc@yahoo.com",
+      password:"abc?",
+      favMovies:["Abejoye", "War room"]
+    }
+  ];
+
+let favouriteMovies=[
     {
         title:'Game of Thrones',
         year:2011,
