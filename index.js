@@ -85,11 +85,21 @@ app.use(morgan('common'));
 app.get('/movies',(req,res)=>{
     res.json(movies);
 });
+
 //return data about a single movie
 app.get('/movies/:title', (req, res) => {
     res.json(movies.find((movie) =>movie.title === req.params.title));
   });
-  
+
+//return data about a genre by genre name
+app.get('/movies/genre/:name', (req, res) => {
+    const movieGenre = movies.find(movie => movie.genre.name === req.params.name);
+    if (movieGenre) {
+        res.status(200).json(movieGenre.genre.description);
+    } else {
+        res.status(400).send(req.params.name + ' not found')
+    }
+});
 app.use(express.static('public'));
 
 app.use((err, req, res, next) => {
