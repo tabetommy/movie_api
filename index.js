@@ -25,57 +25,67 @@ let users=[
     }
   ];
 
-let movies=[
+  let movies=[
     {
         title:'Game of Thrones',
         year:2011,
-        genre:'Adventure'
+        genre:{
+          name:'Adventure',
+          description:'contain many of the same features of action movies, but are usually set in exotic locations. The main theme is adventure, with the characters often exploring places they have not been before or doing things they have not done before'
+        },
+        director:{
+          name:'Alan Taylor',
+          born:'January 13,1959'
+        }
 
     },
     {
         title:'Abejoye',
         year:2018,
-        genre:'Gospel'
+        genre:{
+          name:'Gospel',
+          description:'Movies containing inspired messages the God of the Bible, Jesus and God\'s'
+      },
+        director:{
+          name:'Damilola Mike-Bamiloye',
+          born:'September 16,1989'
+        }
     },
     {
         title:'War Room',
         year:2015,
-        genre:'Gospel'
+        genre:{
+          name:'Gospel',
+          description:'Movies containing inspired messages the God of the Bible, Jesus and God\'s'
+          },
+        director:{
+          name:'Alex kendrick',
+          born:'June 11,1970'
+        }
     },
     {
-        title:'Blacklist',
+        title:'The Blacklist',
         year:2013,
-        genre:'Crime'
+        genre:{
+          name:'Thriller',
+          description:'a work of fiction or drama designed to hold the interest by the use of a high degree of intrigue, adventure, or suspense.'
+          },
+        director:{
+          name:'Joe Carnahan',
+          born:'May 9,1969'
+        }
     },
     {
         title:'Legend of the Seeker',
         year:2008,
-        genre:'Adventure'
-    },
-    {
-        title:'King of the Boys',
-        year:2018,
-        genre:'Political Thriller'
-    },
-    {
-        title:'24',
-        year:2001,
-        genre:'Crime thriller'
-    },
-    {
-        title:'House of Cards',
-        year:2013,
-        genre:'Political Drama'
-    },
-    {
-        title:'Power',
-        year:2014,
-        genre:'Crime Drama'
-    },
-    {
-        title:'THe Weddding Party 1',
-        year:2016,
-        genre:'Comedy'
+        genre:{
+          name:'Adventure',
+          description:'contain many of the same features of action movies, but are usually set in exotic locations. The main theme is adventure, with the characters often exploring places they have not been before or doing things they have not done before'
+        },
+        director:{
+          name:'Sam Raimi',
+          born:'October 23,1959'
+        }
     },
 ];
 
@@ -178,6 +188,7 @@ app.delete('/users/:id', (req, res) => {
       res.status(400).send(req.params.id + ' not found')
     }
   });
+
 app.use(express.static('public'));
 
 app.use((err, req, res, next) => {
