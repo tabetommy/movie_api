@@ -85,7 +85,11 @@ app.use(morgan('common'));
 app.get('/movies',(req,res)=>{
     res.json(movies);
 });
-
+//return data about a single movie
+app.get('/movies/:title', (req, res) => {
+    res.json(movies.find((movie) =>movie.title === req.params.title));
+  });
+  
 app.use(express.static('public'));
 
 app.use((err, req, res, next) => {
