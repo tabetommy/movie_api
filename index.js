@@ -25,7 +25,7 @@ let users=[
     }
   ];
 
-let favouriteMovies=[
+let movies=[
     {
         title:'Game of Thrones',
         year:2011,
@@ -80,15 +80,10 @@ let favouriteMovies=[
 ];
 
 app.use(morgan('common'));
-//return route
-app.get('/',(req,res)=>{
-    res.send('Welcome to my favourite movies of all time!');
-
-});
 
 //return list of all movies to client
 app.get('/movies',(req,res)=>{
-    res.json(favouriteMovies);
+    res.json(movies);
 });
 
 app.use(express.static('public'));
