@@ -1,6 +1,8 @@
 const express=require('express');
-const app=express();
-const morgan=require('morgan');
+      app=express();
+      morgan=require('morgan');
+      bodyParser = require('body-parser'),
+      uuid = require('uuid');
 
 
 const favouriteMovies=[
