@@ -168,6 +168,16 @@ app.delete('/users/:username/favMovies/:removeMovie',(req,res)=>{
   
   });
 
+  //Allow user to deregister himself or herself by id(*+sauber)
+app.delete('/users/:id', (req, res) => {
+    let user = users.find(user =>user.id === req.params.id);
+    if (user) {
+      users = users.filter(obj => obj.id !== req.params.id);
+      res.status(201).send('User with id ' + req.params.id + ' was deleted.');
+    }else{
+      res.status(400).send(req.params.id + ' not found')
+    }
+  });
 app.use(express.static('public'));
 
 app.use((err, req, res, next) => {
