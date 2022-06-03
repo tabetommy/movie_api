@@ -138,6 +138,19 @@ app.put('/users/:username/:password', (req,res)=>{
       res.status(400).send(req.params.username +' not found')
     }
  });
+
+ //Allow users to add movies to their list of favourite movies
+app.put('/users/:username/favMovies/:favMovies',(req,res)=>{
+    let user=users.find(user=>user.username===req.params.username);
+    if(user){
+      const message=user.username +' succesfully added ' + req.params.favMovies + ' to his list of favourite movies ' 
+      user.favMovies.push(req.params.favMovies)
+      res.status(201).send(message)
+    }else{
+      res.status(400).send('The user ' + req.params.username +' is not found')
+    }
+  });
+
 app.use(express.static('public'));
 
 app.use((err, req, res, next) => {
