@@ -151,6 +151,23 @@ app.put('/users/:username/favMovies/:favMovies',(req,res)=>{
     }
   });
 
+  //Allow users to remove a movie from their list of favourite movies
+app.delete('/users/:username/favMovies/:removeMovie',(req,res)=>{
+    const {removeMovie}=req.params;
+    const {username}=req.params;
+  
+    let user=users.find(user=>user.username===username && user.favMovies.includes(removeMovie));
+    if(user){
+      const movieIndex=user.favMovies.indexOf(removeMovie)
+      const message= removeMovie + ' has been succesfully deleted from ' + username + '\'s list of favourite movies';
+      user.favMovies.splice(movieIndex,1)
+      res.status(200).send(message)
+    }else{
+      res.status(400).send( 'usrname :' + username + ' or movie:' +  removeMovie +' is not found')
+    }
+  
+  });
+
 app.use(express.static('public'));
 
 app.use((err, req, res, next) => {
