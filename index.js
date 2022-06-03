@@ -100,6 +100,16 @@ app.get('/movies/genre/:name', (req, res) => {
         res.status(400).send(req.params.name + ' not found')
     }
 });
+
+//return data about a director by name
+app.get('/movies/director/:name',(req,res)=>{
+    const movieDirector=movies.find(movie=>movie.director.name=req.params.name);
+    if(movieDirector){
+      res.status(200).json(movieDirector.director)
+    }else{
+      res.status(400).send('No movie directed by' + req.params.name + ' found')
+    }
+  });
 app.use(express.static('public'));
 
 app.use((err, req, res, next) => {
