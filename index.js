@@ -103,6 +103,19 @@ app.put('/users/:username', (req,res)=>{
 });
 
 
+ //Add new movie to list of favourite movies
+app.put('/users/:username/movies/:MovieID',(req,res)=>{
+   Users.findOneAndUpdate({Username:req.params.username
+  },
+  {$push:{FavouritesMovies:req.params.MovieID}},
+  {new:true})
+  .then(newMovie=>res.json(newMovie))
+  .catch(error=>{
+    console.error(error);
+    res.status(500).send('Error: ' + error)
+  })
+  });
+
  //Delete user by name
  app.delete('/users/:username', (req, res) => {
   Users.findOneAndRemove({Username:req.params.username})
