@@ -102,6 +102,22 @@ app.put('/users/:username', (req,res)=>{
   })
 });
 
+
+ //Delete user by name
+ app.delete('/users/:username', (req, res) => {
+  Users.findOneAndRemove({Username:req.params.username})
+  .then(user=>{
+    if(!user){
+      res.status(400).send(req.params.username + ' was not found')
+    }else{
+      res.status(200).send(req.params.username + ' was deleted.')
+    }
+  }).catch(error=>{
+    console.error(error);
+    res.status(500).send('Error: ' + error)
+  })
+});
+
 app.use(express.static('public'));
 
 app.use((err, req, res, next) => {
