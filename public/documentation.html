@@ -27,7 +27,7 @@
             <td>A JSON object containing data of all the movies</td>
         </tr>
         <tr>
-            <td>Get data of single movie</td>
+            <td>Get data of single movie by title</td>
             <td>/movies/[title]</td>
             <td>GET</td>
             <td>none</td>
@@ -35,48 +35,79 @@
         </tr>
         <tr>
             <td>Get description of a genre  by genre name</td>
-            <td>/movies/genre/[name]/</td>
+            <td>/movies/genre/[genreName]/</td>
             <td>GET</td>
             <td>none</td>
-            <td>A string containing data of a single movie</td>
+            <td>A string containing data of the genre</td>
         </tr>
         <tr>
             <td>Get data about a director by director's name</td>
             <td>/movies/director/[name]/</td>
             <td>GET</td>
             <td>none</td>
-            <td>A JSON object containing director's name and day of birth </td>
+            <td>A JSON object containing director's name,bio, birth and death years</td>
+        </tr>
+        <tr>
+            <td>Get a single user by username</td>
+            <td>/users/[username]</td>
+            <td>GET</td>
+            <td>none</td>
+            <td>A JSON object containing data of single user</td>
         </tr>
         <tr>
             <td>Allow new users to register</td>
             <td>/users</td>
             <td>POST</td>
             <td>
-                A JSON object holding data about the new user structured like:<br>
+                A JSON object holding data about the new user structured like (fields with * required):<br>
                 {<br>
-                    username:"Brian Mukukeba",<br>
-                    password:"xyz!";<br>
+                    Username*:"BrianMukukeba",<br>
+                    Password*:"brian2000";<br>
+                    Email*:"brian@yahoo.com"<br>
+                    Birthdate:new date(Year-Month-Day)<br>
+                    FavouriteMovies:[MovieIDs]<br>
                 }
             </td>
             <td>
                 A JSON object holding data about the new user structured like:<br>
                 {<br>
-                    username:"Brian Mukeba",<br>
-                    password:"xyz!";<br>
-                    id:1<br>
+                    Username:string,<br>
+                    Password:string;<br>
+                    Email:string<br>
+                    Birthdate:date<br>
+                    FavouriteMovies:[strings]<br>
+                    _Id:ObjectId("string")
                 }
             </td>
         </tr>
         <tr>
-            <td>Allow users update their password</td>
-            <td>/users/[username]/[password]</td>
+            <td>Update user info by username</td>
+            <td>/users/[username]</td>
             <td>PUT</td>
-            <td>none</td>
-            <td>A message indicating that user sussesfully updated his/her password</td>
+            <td>
+                A JSON object holding data about the updated user info structured like :<br>
+                {<br>
+                    Username:"BrianMukukeba",<br>
+                    Password:"brian2000";<br>
+                    Email:"brian@yahoo.com"<br>
+                    Birthdate:new date(Year-Month-Day)<br>    
+                }
+            </td>
+            <td>
+                A JSON object holding data about the updated user info structured like:<br>
+                {<br>
+                    Username:string,<br>
+                    Password:string;<br>
+                    Email:string<br>
+                    Birthdate:date<br>
+                    FavouriteMovies:[strings]<br>
+                    _Id:ObjectId("string")
+                }
+            </td>
         </tr>
         <tr>
-            <td>Allow users add a movie to their list of favourite movies</td>
-            <td>/users/[username]/favMovies/[favMovies]</td>
+            <td>Add a movie to list of favourite movies</td>
+            <td>/users/[username]/movie/[MovieId]</td>
             <td>Put</td>
             <td>none</td>
             <td>A message indicating that movie has been succesfully added to list of favourites</td>
@@ -89,11 +120,11 @@
             <td>A message indicating that movie has been succesfully removed from list of favourites</td>
         </tr>
         <tr>
-            <td>Allow users to deregister</td>
-            <td>/users/[id]</td>
+            <td>Deregister or delete user account</td>
+            <td>/users/[username]</td>
             <td>DELETE</td>
             <td>none</td>
-            <td>A message indicating that user has been succesfully deregistered</td>
+            <td>A message indicating delete status</td>
         </tr>
       </table>
     </body>
