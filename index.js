@@ -13,10 +13,20 @@ app.use(bodyParser.json());
 mongoose.connect('mongodb://localhost:27017/myFlix', { useNewUrlParser: true, useUnifiedTopology: true });
 app.use(morgan('common'));
 
-//return list of all movies to client(ok)
+//return list of all movies to client
 app.get('/movies',(req,res)=>{
   Movies.find()
   .then(movies=>res.json(movies))
+  .catch(error=>{
+    console.error(error);
+    res.status(500).send('Error: ' + error)
+  })
+});
+
+//return data about a single movie by title
+app.get('/movies/:title', (req, res) => {
+  Movies.findOne({Title:req.params.title})
+  .then(movie=>res.json(movie))
   .catch(error=>{
     console.error(error);
     res.status(500).send('Error: ' + error)
