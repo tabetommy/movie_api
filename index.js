@@ -79,6 +79,29 @@ app.post('/users',(req,res)=>{
     res.status(500).send('Error: ' + error)
   })
 });
+
+//Update user info by username
+app.put('/users/:username', (req,res)=>{
+  Users.findOneAndUpdate({Username:req.params.username
+  },{ $set:
+    {
+      Username: req.body.Username,
+      Password: req.body.Password,
+      Email: req.body.Email,
+      Birthday: req.body.Birthday
+    }
+  },
+  {new:true}
+  )
+  .then(updatedUser=>{
+    res.status(201).json(updatedUser)
+  })
+  .catch(error=>{
+    console.error(error);
+    res.status(500).send('Error :' + error)
+  })
+});
+
 app.use(express.static('public'));
 
 app.use((err, req, res, next) => {
