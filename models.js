@@ -23,3 +23,9 @@ let userSchema=mongoose.Schema({
     Birthdate:Date,
     FavouritesMovies:[{type:mongoose.Schema.Types.ObjectId, ref:'Movie'}]
 });
+
+let Movie=mongoose.model('movie',movieSchema);
+let User=mongoose.model('user',userSchema);
+
+module.exports.Movie=Movie;
+module.exports.User=User;
