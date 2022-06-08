@@ -43,6 +43,16 @@ app.get('/movies/genre/:genreName', (req, res) => {
   })
 });
 
+//return data about a director by director's name
+app.get('/movies/director/:directorName',(req,res)=>{
+  Movies.findOne({"Director.Name":req.params.directorName})
+  .then(movie=>res.json(movie.Director))
+  .catch(error=>{
+    console.error(error);
+    res.status(500).send('Error: ' + error)
+  })
+});
+
 app.use(express.static('public'));
 
 app.use((err, req, res, next) => {
