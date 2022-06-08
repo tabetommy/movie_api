@@ -116,6 +116,20 @@ app.put('/users/:username/movies/:MovieID',(req,res)=>{
   })
   });
 
+  //Delete movie from user's list of favourite movies
+app.delete('/users/:username/movies/:MovieID',(req,res)=>{
+  Users.findOneAndUpdate({Username:req.params.username
+ },
+ {$pull:{FavouritesMovies:req.params.MovieID}},
+ {new:true})
+ .then(movieId=>res.json(movieId))
+ .catch(error=>{
+   console.error(error);
+   res.status(500).send('Error: ' + error)
+ })
+ });
+
+
  //Delete user by name
  app.delete('/users/:username', (req, res) => {
   Users.findOneAndRemove({Username:req.params.username})
