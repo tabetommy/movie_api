@@ -6,11 +6,10 @@ const express=require('express');
       mongoose= require('mongoose'),
       Models= require('./models.js'),
       Movies= Models.Movie,
-      Users= Models.User;
-      
+      Users= Models.User,
+      cors = require('cors');
 
-
-
+app.use(cors());
 app.use(bodyParser.json());
 mongoose.connect('mongodb://localhost:27017/myFlix', { useNewUrlParser: true, useUnifiedTopology: true });
 app.use(morgan('common'));
@@ -142,7 +141,7 @@ app.delete('/users/:username/movies/:MovieID',passport.authenticate('jwt', { ses
   Users.findOneAndRemove({Username:req.params.username})
   .then(user=>{
     if(!user){
-      res.status(400).send(req.params.username + ' it was not found')
+      res.status(400).send(req.params.username + ' was not found')
     }else{
       res.status(200).send(req.params.username + ' was deleted.')
     }
