@@ -12,12 +12,18 @@ const { check, validationResult } = require('express-validator');
 
 app.use(cors());
 app.use(bodyParser.json());
-mongoose.connect('mongodb://localhost:27017/myFlix', { useNewUrlParser: true, useUnifiedTopology: true });
+// mongoose.connect('mongodb://localhost:27017/myFlix', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('process.env.CONNECTION_URI', { useNewUrlParser: true, useUnifiedTopology: true });
 app.use(morgan('common'));
 app.use(bodyParser.urlencoded({ extended: true }));
 let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
+
+//default message
+app.get('/',(req, res)=>{
+  res.send('This ia an API for movie catalogs')
+})
 
 //return list of all movies 
 app.get('/movies',passport.authenticate('jwt', { session: false }),(req,res)=>{
