@@ -1,13 +1,15 @@
 const express=require('express');
-      app=express();
-      morgan=require('morgan');
+      app=express(),
+      morgan=require('morgan'),
       bodyParser = require('body-parser'),
-      uuid = require('uuid');
-      mongoose= require('mongoose');
-      Models= require('./models.js');
-      Movies= Models.Movie;
+      uuid = require('uuid'),
+      mongoose= require('mongoose'),
+      Models= require('./models.js'),
+      Movies= Models.Movie,
       Users= Models.User;
       
+
+
 
 app.use(bodyParser.json());
 mongoose.connect('mongodb://localhost:27017/myFlix', { useNewUrlParser: true, useUnifiedTopology: true });
@@ -58,7 +60,8 @@ app.get('/movies/director/:directorName',passport.authenticate('jwt', { session:
 });
 
 //Create user
-app.post('/users',(req,res)=>{
+app.post('/users', (req,res)=>{
+  
   Users.findOne({Username:req.body.Username})
   .then(user=>{
     if(user){
@@ -67,7 +70,7 @@ app.post('/users',(req,res)=>{
       Users
       .create({
         Username: req.body.Username,
-        Password: req.body.Password,
+        Password: req.body.Passowrd,
         Email: req.body.Email,
         Birthday: req.body.Birthday
       })
