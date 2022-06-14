@@ -6,18 +6,24 @@ const express=require('express');
       mongoose= require('mongoose'),
       Models= require('./models.js'),
       Movies= Models.Movie,
-      Users= Models.User;
-      
+      Users= Models.User,
+      cors = require('cors');
+const { check, validationResult } = require('express-validator');
 
-
-
+app.use(cors());
 app.use(bodyParser.json());
-mongoose.connect('mongodb://localhost:27017/myFlix', { useNewUrlParser: true, useUnifiedTopology: true });
+// mongoose.connect('mongodb://localhost:27017/myFlix', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('process.env.CONNECTION_URI', { useNewUrlParser: true, useUnifiedTopology: true });
 app.use(morgan('common'));
 app.use(bodyParser.urlencoded({ extended: true }));
 let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
+
+//default message
+app.get('/',(req, res)=>{
+  res.send('This ia an API for movie catalogs')
+})
 
 //return list of all movies 
 app.get('/movies',passport.authenticate('jwt', { session: false }),(req,res)=>{
@@ -60,8 +66,18 @@ app.get('/movies/director/:directorName',passport.authenticate('jwt', { session:
 });
 
 //Create user
-app.post('/users', (req,res)=>{
-  
+app.post('/users',[
+  check('Username', 'Username is required').isLength({min: 5}),
+  check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+  check('Password', 'Password is required').not().isEmpty(),
+  check('Email', 'Email does not appear to be valid').isEmail()
+],(req,res)=>{
+  let errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+
+  let hashedPassword = Users.hashPassword(req.body.Password);
   Users.findOne({Username:req.body.Username})
   .then(user=>{
     if(user){
@@ -70,7 +86,7 @@ app.post('/users', (req,res)=>{
       Users
       .create({
         Username: req.body.Username,
-        Password: req.body.Passowrd,
+        Password: hashedPassword,
         Email: req.body.Email,
         Birthday: req.body.Birthday
       })
@@ -88,7 +104,17 @@ app.post('/users', (req,res)=>{
 });
 
 //Update user info by username
-app.put('/users/:username',passport.authenticate('jwt', { session: false }),(req,res)=>{
+app.put('/users/:username',[
+  check('Username', 'Username is required').isLength({min: 5}),
+  check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+  check('Password', 'Password is required').not().isEmpty(),
+  check('Email', 'Email does not appear to be valid').isEmail()
+],passport.authenticate('jwt', { session: false }),(req,res)=>{
+  let errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+
   Users.findOneAndUpdate({Username:req.params.username
   },{ $set:
     {
@@ -142,7 +168,7 @@ app.delete('/users/:username/movies/:MovieID',passport.authenticate('jwt', { ses
   Users.findOneAndRemove({Username:req.params.username})
   .then(user=>{
     if(!user){
-      res.status(400).send(req.params.username + ' it was not found')
+      res.status(400).send(req.params.username + ' was not found')
     }else{
       res.status(200).send(req.params.username + ' was deleted.')
     }
@@ -159,9 +185,9 @@ app.use((err, req, res, next) => {
   res.status(500).send('Something broke!');
 });
 
-app.listen(8080,()=>{
-    console.log('This app is being listened to on port 8080');
+const port = process.env.PORT || 8080;
+app.listen(port, '0.0.0.0',() => {
+ console.log('Listening on Port ' + port);
 });
-
 
 
