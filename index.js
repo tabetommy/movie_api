@@ -152,7 +152,7 @@ app.put('/users/:username',[
 app.put('/users/:username/movies/:MovieID',(req,res)=>{
    Users.findOneAndUpdate({Username:req.params.username
   },
-  {$push:{FavouritesMovies:req.params.MovieID}},
+  {$addToSet:{FavouritesMovies:req.params.MovieID}},
   {new:true})
   .then(newMovie=>res.json(newMovie))
   .catch(error=>{
