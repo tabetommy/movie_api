@@ -118,9 +118,9 @@ app.get('/users/:username',passport.authenticate('jwt', { session: false }),(req
 app.put('/users/:username',[
   check('Username', 'Username is required').isLength({min: 5}),
   check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
-  check('Password', 'Password is required').not().isEmpty(),
+  // check('Password', 'Password is required').not().isEmpty(),
   check('Email', 'Email does not appear to be valid').isEmail(),
-  check('Birthday', 'Birthday does not appear to be valid').isDate()
+  // check('Birthday', 'Birthday does not appear to be valid').isDate()
 ],passport.authenticate('jwt', { session: false }),(req,res)=>{
   let errors = validationResult(req);
   if (!errors.isEmpty()) {
