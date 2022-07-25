@@ -118,7 +118,6 @@ app.get('/users/:username',passport.authenticate('jwt', { session: false }),(req
 app.put('/users/:username',[
   check('Username', 'Username is required').isLength({min: 5}),
   check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
-  check('Password', 'Password is required').not().isEmpty(),
   check('Email', 'Email does not appear to be valid').isEmail(),
   check('Birthday', 'Birthday does not appear to be valid').isDate()
 ],passport.authenticate('jwt', { session: false }),(req,res)=>{
@@ -149,7 +148,7 @@ app.put('/users/:username',[
 
 
  //Add new movie to list of favourite movies
-app.put('/users/:username/movies/:MovieID',(req,res)=>{
+app.put('/users/:username/movies/:MovieID',passport.authenticate('jwt', { session: false }),(req,res)=>{
    Users.findOneAndUpdate({Username:req.params.username
   },
   {$addToSet:{FavouritesMovies:req.params.MovieID}},
