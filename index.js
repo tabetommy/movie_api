@@ -161,6 +161,17 @@ app.put('/users/:username/movies/:MovieID',passport.authenticate('jwt', { sessio
   })
   });
 
+
+ //get info about user's favourite movie by username and mvoiId
+ app.get('/users/:username/movies',passport.authenticate('jwt', { session: false }),(req,res)=>{
+    Users.findOne({Username:req.params.username})
+  .then(user=>res.json(user.FavouritesMovies))
+  .catch(error=>{
+    console.error(error);
+    res.status(500).send('Error: ' + error)
+  })
+  });
+
   //Delete movie from user's list of favourite movies
 app.delete('/users/:username/movies/:MovieID',passport.authenticate('jwt', { session: false }),(req,res)=>{
   Users.findOneAndUpdate({Username:req.params.username
