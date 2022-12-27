@@ -20,9 +20,7 @@ let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
 
-/**
- * This function is the 
- */
+
 app.get('/',(req, res)=>{
   res.send('This ia an API for movie catalogs')
 })
