@@ -38,6 +38,20 @@ app.get('/movies',passport.authenticate('jwt', { session: false }),(req,res)=>{
   })
 });
 
+
+/**
+ * Retrieve all movies from movie schema for admin(verfication nor required)
+ *@returns{promise} Promise object represents data of all movies(id,title, Genre,Director,Description,Imagepath and Feature)
+ */
+app.get('/movieadminroute',(req,res)=>{
+  Movies.find()
+  .then(movies=>res.json(movies))
+  .catch(error=>{
+    console.error(error);
+    res.status(500).send('Error: ' + error)
+  })
+});
+
 /**
  * Finds a single movie by movie name
  * @param{string} title
