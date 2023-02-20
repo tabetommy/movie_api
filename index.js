@@ -11,7 +11,7 @@ const express=require('express');
 const { check, validationResult } = require('express-validator');
 
 app.use(cors({
-    origin: 'http://localhost:4200/'
+    origin: '*'
   }
   ));
 app.use(bodyParser.json());
