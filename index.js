@@ -10,9 +10,13 @@ const express=require('express');
       cors = require('cors');
 const { check, validationResult } = require('express-validator');
 
-app.use(cors({
-    origin: '*'
-  }
+app.use(cors(function(req, res, next) {
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+      res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+      res.setHeader('Access-Control-Allow-Credentials', true);
+      next();
+      }
   ));
 app.use(bodyParser.json());
 mongoose.connect('mongodb://localhost:27017/myFlix', { useNewUrlParser: true, useUnifiedTopology: true });
