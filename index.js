@@ -21,15 +21,6 @@ const passport = require('passport');
 require('./passport');
 
 
-//function(req, res, next) {
-  //     res.setHeader('Access-Control-Allow-Origin', '*');
-  //     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  //     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  //     res.setHeader('Access-Control-Allow-Credentials', true);
-  //     next();
-  //     }
-
-
 app.get('/',(req, res)=>{
   res.send('This ia an API for movie catalogs')
 })
@@ -52,14 +43,14 @@ app.get('/movies',passport.authenticate('jwt', { session: false }),(req,res)=>{
  * Retrieve all movies from movie schema for admin(verfication nor required)
  *@returns{promise} Promise object represents data of all movies(id,title, Genre,Director,Description,Imagepath and Feature)
  */
-// app.get('/movieadminroute',(req,res)=>{
-//   Movies.find()
-//   .then(movies=>res.json(movies))
-//   .catch(error=>{
-//     console.error(error);
-//     res.status(500).send('Error: ' + error)
-//   })
-// });
+app.get('/movieadminroute',(req,res)=>{
+  Movies.find()
+  .then(movies=>res.json(movies))
+  .catch(error=>{
+    console.error(error);
+    res.status(500).send('Error: ' + error)
+  })
+});
 
 /**
  * Finds a single movie by movie name
